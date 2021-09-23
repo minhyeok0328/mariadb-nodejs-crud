@@ -1,0 +1,11 @@
+# path
+node_modules/
+
+# file
+package-lock.json
+yarn.lock
+
+# others
+.vscode
+.idea
+.DS_Store
