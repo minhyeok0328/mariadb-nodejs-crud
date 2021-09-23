@@ -1,5 +1,6 @@
 # path
 node_modules/
+database/data/*
 
 # file
 package-lock.json
