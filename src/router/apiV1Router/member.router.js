@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { MemberController } from "../../controller/member.controller.js";
 
-const { register, test, checkDuplicatedId } = MemberController;
+const { signup, signin, getMemberInfo, logout } = MemberController;
 const router = Router();
 
-router.post('/register', register);
-router.get('/test', test);
-router.get('/checkDuplicatedId/:id', checkDuplicatedId);
+router.get('/getMemberInfo', getMemberInfo);
+router.get('/logout', logout);
+router.post('/signup', signup);
+router.post('/signin', signin);
 
 export default router;
