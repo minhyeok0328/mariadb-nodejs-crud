@@ -1,10 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { SECRET_KEY, expiresIn, issuer, subject } from '../config/jwt-info.js';
-// 인증 예외 api
+import { SECRET_KEY } from '../config/jwt-info.js';
+// exception url
 const exceptionURL = [
-    '/api/v1/member/logout',
-    '/api/v1/member/signin',
-    '/api/v1/member/signup',
+    '/api/v1/board/write'
 ];
 
 export const authCheck = (req, res, next) => {
@@ -12,22 +10,21 @@ export const authCheck = (req, res, next) => {
     const { originalUrl } = req;
     console.log(originalUrl);
 
-    if (!token) {
-        next();
+    if (!token && exceptionURL.indexOf(originalUrl) !== -1) {
+        res.status(401).json({ error: `You don't have permission.` });
 
         return;
     }
 
     jwt.verify(token, SECRET_KEY, (err) => {
         if (err) {
- 
             if (exceptionURL.indexOf(originalUrl) !== -1) {
-                next();
-
+                res.status(401).json({ error: `You don't have permission.` });
+                
                 return;
             }
 
-            res.status(401).json({ error: '권한이 없습니다.' });
+            next();
         } else {
             next();
         }
