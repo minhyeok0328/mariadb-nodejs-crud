@@ -1,10 +1,12 @@
 version: '3.1'
 
 services:
-  mariadb:
+  db:
     image: mariadb:10.6.4
     ports:
       - 3306:3306
+    expose:
+      - 3306
     volumes:
       - ./database/conf.d:/etc/mysql/conf.d
       - ./database/data:/var/lib/mysql
@@ -13,8 +15,22 @@ services:
     environment:
       TZ: Asia/Seoul
     networks:
-      - backend
+      - default
     restart: always
 
+  app:
+    image: crud-nodejs
+    build: .
+    working_dir: /usr/src/app
+    depends_on:
+      - db
+    ports:
+      - 80:8080
+    command: bash -c "npm install && npm start"
+    networks:
+      - default
+    volumes:
+      - .:/usr/src/app
+
 networks:
-  backend:
+  default:
