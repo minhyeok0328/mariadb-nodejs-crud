@@ -26,7 +26,14 @@ services:
       - db
     ports:
       - 80:8080
-    command: bash -c "npm install && npm start"
+    command: >
+      bash -c "
+        while ! nc -z db 3306;
+        do
+          sleep 5;
+        done;
+        npm install && npm start;
+      "
     networks:
       - default
     volumes:
