@@ -9,7 +9,9 @@ export class MemberController {
     constructor() {}
 
     static async signup(req, res) {
-        const dupCheck = await getMemberInfo(req.body.id);
+        const { id, password, name, email } = req.body;
+        const dupCheck = await getMemberInfo(id);
+        const validate = ['id', 'password', 'name', 'email'];
 
         if (dupCheck) {
             res.status(400).send({ error: 'These are duplicated IDs.' });
@@ -17,11 +19,21 @@ export class MemberController {
             return;
         }
 
-        const password = await new Promise(resolve => bcrypt.hash(req.body.password, saltRounds, (err, hash) => resolve(hash)));
+        for (const key of validate) {
+            if (!req.body[key]) {
+                res.status(400).send({ error: `${key} is a required value.` });
+
+                return;
+            }
+        }
+
+        const hashPassword = await new Promise(resolve => bcrypt.hash(password, saltRounds, (err, hash) => resolve(hash)));
 
         await signup({
-            ...req.body,
-            password
+            id,
+            password: hashPassword,
+            name,
+            email
         });
 
         res.json(true);
@@ -31,14 +43,14 @@ export class MemberController {
         const { password } = req.body;
         const response = await getMemberInfo(req.body.id);
 
-        if (!response || response && !await bcrypt.compareSync(password, response.password)) {
+        if (!response || response && !bcrypt.compareSync(password, response.password)) {
             res.status(400).send({ error: 'The ID or password does not match.' });
-
+    
             return;
         }
 
-        const { id, name, email, loginDate, idx } = response;
-        const token = signToken({ email, name, id, loginDate, idx });
+        const { id, name, email, idx } = response;
+        const token = signToken({ email, name, id, userIdx: idx });
 
         res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
         res.json(true);

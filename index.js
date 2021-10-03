@@ -16,5 +16,5 @@ app.get('/api/v1/test', (req,  res) => {
 });
 
 app.listen(8080, () => {
-    console.log('server running on http://localhost:8080');
+    console.log(`server running! / node -v: ${process.version}`);
 });

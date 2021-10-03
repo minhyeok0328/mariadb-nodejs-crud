@@ -1,3 +1,8 @@
+SET NAMES utf8;
+
+CREATE DATABASE IF NOT EXISTS crud;
+SET character_set_client = utf8mb4 ;
+
 CREATE TABLE `member` (
   `idx` int(11) NOT NULL AUTO_INCREMENT,
   `id` varchar(100) NOT NULL,
@@ -15,13 +20,7 @@ CREATE TABLE `board` (
 	`userIdx` int(11) NOT NULL,
 	`subject` varchar(100) NOT NULL,
 	`content` TEXT NOT NULL,
-	`registDate` DATETIME NOT NULL,
-	`categoryIdx` INT NOT NULL,
-	PRIMARY KEY (`idx`)
-);
-
-CREATE TABLE `category` (
-	`idx` INT auto_increment NOT NULL,
-	`categoryName` varchar(100) NOT NULL,
+	`registDate` datetime NOT NULL,
+	`updateDate` datetime DEFAULT NULL,
 	PRIMARY KEY (`idx`)
 );

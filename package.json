@@ -18,8 +18,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.0"
   },
-  "type": "module",
   "devDependencies": {
     "nodemon": "^2.0.13"
-  }
+  },
+  "type": "module"
 }

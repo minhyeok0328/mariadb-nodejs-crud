@@ -10,7 +10,7 @@ services:
     volumes:
       - ./database/conf.d:/etc/mysql/conf.d
       - ./database/data:/var/lib/mysql
-      - ./database/initdb.d:/docker-entrypoint-initdb.d
+      - ./database/init:/docker-entrypoint-initdb.d
     env_file: .env
     environment:
       TZ: Asia/Seoul
@@ -19,7 +19,7 @@ services:
     restart: always
 
   app:
-    image: crud-nodejs
+    image: node-web-app
     build: .
     working_dir: /usr/src/app
     depends_on:
