@@ -4,6 +4,10 @@ import { signToken, decodeToken } from '../utils/jwt.js';
 
 const saltRounds = 10;
 const { getMemberInfo, signup } = MemberModel;
+const validate = {
+    signup: ['id', 'password', 'name', 'email'],
+    signin: ['id', 'password']
+};
 
 export class MemberController {
     constructor() {}
@@ -11,7 +15,6 @@ export class MemberController {
     static async signup(req, res) {
         const { id, password, name, email } = req.body;
         const dupCheck = await getMemberInfo(id);
-        const validate = ['id', 'password', 'name', 'email'];
 
         if (dupCheck) {
             res.status(400).send({ error: 'These are duplicated IDs.' });
@@ -19,7 +22,7 @@ export class MemberController {
             return;
         }
 
-        for (const key of validate) {
+        for (const key of validate.signup) {
             if (!req.body[key]) {
                 res.status(400).send({ error: `${key} is a required value.` });
 
@@ -40,8 +43,17 @@ export class MemberController {
     }
 
     static async signin(req, res) {
-        const { password } = req.body;
-        const response = await getMemberInfo(req.body.id);
+        const { password, 'id': userId } = req.body;
+
+        for (const data of validate.signin) {
+            if (!req.body[data]) {
+                res.status(400).send({ error: `${data} is required.` });
+
+                return;
+            }
+        }
+
+        const response = await getMemberInfo(userId);
 
         if (!response || response && !bcrypt.compareSync(password, response.password)) {
             res.status(400).send({ error: 'The ID or password does not match.' });

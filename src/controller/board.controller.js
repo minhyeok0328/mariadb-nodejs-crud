@@ -2,6 +2,10 @@ import { BoardModel } from "../model/board.model.js";
 import { signToken, decodeToken } from '../utils/jwt.js';
 
 const { boardList, boardView, boardWrite, boardUpdate, boardDelete } = BoardModel;
+const validate = {
+    write: ['subject', 'content'],
+    update: ['subject', 'content', 'idx']
+};
 
 export class BoardController {
     constructor() {}
@@ -21,8 +25,15 @@ export class BoardController {
     }
 
     static async boardWrite(req, res) {
-        const { token } = req.cookies;
+        for (const data of validate.write) {
+            if (!req.body[data]) {
+                res.status(400).send({ error: `${data} is required.` });
 
+                return;
+            }
+        }
+
+        const { token } = req.cookies;
         const { userIdx, name, email, id } = decodeToken(token);
         const { subject, content } = req.body;
         const { insertId } = await boardWrite({
@@ -38,6 +49,14 @@ export class BoardController {
     }
 
     static async boardUpdate(req, res) {
+        for (const data of validate.update) {
+            if (!req.body[data]) {
+                res.status(400).send({ error: `${data} is required.` });
+
+                return;
+            }
+        }
+
         const { token } = req.cookies;
         const { userIdx, name, email, id } = decodeToken(token);
         const { subject, content, idx } = req.body;
@@ -75,6 +94,6 @@ export class BoardController {
 
         await boardDelete({ idx });
 
-        res.json(response);
+        res.json(true);
     }
 }

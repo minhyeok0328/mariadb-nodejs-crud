@@ -70,10 +70,7 @@ export class BoardModel {
     }
 
     static async boardDelete({ idx }) {
-        const [ rows ] = await db.query(`
-            delete from board
-                where idx = ?
-            `, [ idx ]);
+        const [ rows ] = await db.query(`delete from board where idx = ?`, [ idx ]);
 
         return rows;
     }
