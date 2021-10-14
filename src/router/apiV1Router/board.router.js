@@ -5,9 +5,9 @@ const { boardList, boardView, boardWrite, boardUpdate, boardDelete } = BoardCont
 const router = Router();
 
 router.get('/list', boardList);
-router.get('/view/:idx', boardView);
-router.post('/write', boardWrite);
-router.put('/update', boardUpdate);
-router.delete('/delete/:idx', boardDelete);
+router.get('/:idx', boardView);
+router.post('/', boardWrite);
+router.put('/', boardUpdate);
+router.delete('/:idx', boardDelete);
 
 export default router;

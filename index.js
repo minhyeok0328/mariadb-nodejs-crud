@@ -11,10 +11,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(authCheck);
 app.use('/api/v1', ApiV1Router);
-app.get('/api/v1/test', (req,  res) => {
-    res.json({test: 1234});
-});
-
 app.listen(8080, () => {
     console.log(`server running! / node -v: ${process.version}`);
 });
