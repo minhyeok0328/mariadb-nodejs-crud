@@ -7,5 +7,6 @@ I used mariadb, node.js (express.js) and docker
 
 ## Running the app
 ```
+$ docker pull alsgur0008/mariadb-nodejs:1.0
 $ docker-compose up
 ```
