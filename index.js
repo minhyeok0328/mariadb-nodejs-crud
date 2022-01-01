@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(authCheck);
 app.use('/api/v1', ApiV1Router);
-const port = process.env.NODE_ENV == 'production' ? 443 : 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`server running! / node -v: ${process.version}`);
 });
