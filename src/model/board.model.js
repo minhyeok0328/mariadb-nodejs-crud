@@ -3,10 +3,12 @@ import db from '../database/index.js';
 export class BoardModel {
     constructor() {}
 
-    static async boardList({ search }) {
+    static async boardList({ search, page = 1 }) {
         let where = '';
         let params = [];
+        const limit = 10;
 
+        if (!page || page < 1) page = 1;
         if (search) {
             where = where + ` and subject like ? `;
             params.push(`%${search}%`);
@@ -18,6 +20,7 @@ export class BoardModel {
                     where 1=1
                     ${where}
                 order by registDate desc
+                limit ${(page - 1) * 10}, ${limit}
             `, params),
             db.query(`
                 select count(*) as cnt from board
