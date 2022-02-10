@@ -11,8 +11,7 @@ export class BoardController {
     constructor() {}
 
     static async boardList(req, res) {
-        const { search } = req.query;
-        const response = await boardList({ search });
+        const response = await boardList(req.query);
 
         res.json(response);
     }

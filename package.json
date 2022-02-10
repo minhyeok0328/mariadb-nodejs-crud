@@ -18,10 +18,9 @@
     "express-jwt": "^6.1.0",
     "graphql": "^15.6.1",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.0"
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.15"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.13"
-  },
+  "devDependencies": {},
   "type": "module"
 }

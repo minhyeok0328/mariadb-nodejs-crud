@@ -7,13 +7,16 @@ import graphql from './src/graphql/index.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(authCheck);
 app.use('/api/v1', ApiV1Router);
 app.use('/graphql', graphql);
-
-app.listen(8080, () => {
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
     console.log(`server running! / node -v: ${process.version}`);
 });
