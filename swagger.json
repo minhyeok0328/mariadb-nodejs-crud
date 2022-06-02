@@ -1,0 +1,98 @@
+{
+    "swagger":"2.0",
+    "info":{
+      "version":"1.0.0",
+      "title":"Swagger for Plask task API",
+      "description":"Open API docs with Swagger",
+      "license":{
+        "name":"MIT",
+        "url":"http://localhost"
+      }
+    },
+    "host":"localhost:3000",
+    "basePath":"/",
+    "tags":[
+      {
+        "name":"Task Swagger",
+        "description":"API for task"
+      }
+    ],
+    "schemes":[
+      "http"
+    ],
+    "consumes":[
+      "application/json"
+    ],
+    "produces":[
+      "application/json"
+    ],
+    "paths":{
+      "/":{
+        "get":{
+          "tags":[
+            "Main"
+          ],
+          "summary":"Main Page Get",
+          "responses":{
+            "200":{
+              "description":"OK",
+              "schema":{
+                "$ref":"#definitions/item"
+              }
+            }
+          }
+        },
+        "post":{
+          "tags":[
+            "Main"
+          ],
+          "summary":"Login Data Post",
+          "parameters":[
+            {
+              "in":"body",
+              "name":"body",
+              "description":"Register",
+              "schema":{
+                "$ref":"#/definitions/user"
+              }
+            }
+          ],
+          "responses":{
+            "201":{
+              "description":"Register Success"
+            },
+            "404":{
+              "description":"Failed. Bad Request"
+            }
+          }
+        }
+      }
+    },
+    "definitions":{
+      "user":{
+        "properties":{
+          "userid":{
+            "type":"integer"
+          },
+          "email":{
+            "type":"string"
+          },
+          "passwd":{
+            "type":"string"
+          },
+          "name":{
+            "type":"string"
+          },
+          "callnumber":{
+            "type":"string"
+          },
+          "refresh":{
+            "type":"string"
+          },
+          "salt":{
+            "type":"string"
+          }
+        }
+      }
+    }
+  }
