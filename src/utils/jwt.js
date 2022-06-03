@@ -6,7 +6,9 @@ export const signToken = (params) => {
 }
 
 export const decodeToken = (token) => {
-    return jwt.decode(token);
+    const { email, name, id, userIdx } = jwt.decode(token);
+
+    return { email, name, id, userIdx };
 }
 
 export const tokenOptions = {
