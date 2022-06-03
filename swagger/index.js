@@ -18,7 +18,11 @@ const swaggerDefinition = {
   servers: [
     {
       url: 'http://localhost',
-      description: 'Development server',
+      description: 'local server',
+    },
+    {
+      url: 'https://mariadb-nodejs.herokuapp.com/',
+      description: 'Heroku server',
     },
   ],
   tags: [
