@@ -5,7 +5,7 @@ export default {
       tags: ['Members'],
       description: 'Logged in member information',
       produces: ['application/json'],
-      response: {
+      responses: {
         '200': {
           description: 'successful operation',
         }
@@ -18,7 +18,7 @@ export default {
       tags: ['Members'],
       description: 'Logout',
       produces: ['application/json'],
-      response: {
+      responses: {
         '200': {
           description: 'successful operation'
         }
@@ -61,7 +61,7 @@ export default {
           }
         }
       },
-      response: {
+      responses: {
         '200': {
           description: 'successful operation'
         }
@@ -94,7 +94,7 @@ export default {
           }
         }
       },
-      response: {
+      responses: {
         '200': {
           description: 'successful operation'
         }

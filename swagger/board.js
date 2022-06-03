@@ -23,7 +23,7 @@ export default {
           }
         }
       ],
-      response: {
+      responses: {
         '200': {
           description: 'successful operation',
         }
@@ -56,7 +56,7 @@ export default {
           }
         }
       },
-      response: {
+      responses: {
         '200': {
           description: 'successful operation'
         }
@@ -92,7 +92,7 @@ export default {
           }
         }
       },
-      response: {
+      responses: {
         '200': {
           description: 'successful operation'
         }
@@ -115,7 +115,7 @@ export default {
           }
         }
       ],
-      response: {
+      responses: {
         '200': {
           description: 'successful operation',
         }
@@ -136,7 +136,7 @@ export default {
           }
         }
       ],
-      response: {
+      responses: {
         '200': {
           description: 'successful operation',
         }
