@@ -64,7 +64,11 @@ export class MemberController {
         const { id, name, email, idx } = response;
         const token = signToken({ email, name, id, userIdx: idx });
 
-        res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 24 * 60 * 60 * 1000}
+        );
         res.json(true);
     }
 
