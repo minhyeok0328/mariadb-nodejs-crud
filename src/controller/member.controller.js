@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { MemberModel } from "../model/member.model.js";
-import { signToken, decodeToken } from '../utils/jwt.js';
+import { signToken, decodeToken, tokenOptions } from '../utils/jwt.js';
 
 const saltRounds = 10;
 const { getMemberInfo, signup } = MemberModel;
@@ -64,11 +64,7 @@ export class MemberController {
         const { id, name, email, idx } = response;
         const token = signToken({ email, name, id, userIdx: idx });
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 24 * 60 * 60 * 1000}
-        );
+        res.cookie('token', token, tokenOptions);
         res.json(true);
     }
 

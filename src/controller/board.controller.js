@@ -1,5 +1,5 @@
 import { BoardModel } from "../model/board.model.js";
-import { signToken, decodeToken } from '../utils/jwt.js';
+import { signToken, decodeToken, tokenOptions } from '../utils/jwt.js';
 
 const { boardList, boardView, boardWrite, boardUpdate, boardDelete } = BoardModel;
 const validate = {
@@ -43,7 +43,7 @@ export class BoardController {
         });
         const resetToken = signToken({ id, name, email, userIdx });
 
-        res.cookie('token', resetToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+        res.cookie('token', resetToken, tokenOptions);
         res.json({ insertId });
     }
 
@@ -75,7 +75,7 @@ export class BoardController {
 
         const resetToken = signToken({ id, name, email, userIdx });
 
-        res.cookie('token', resetToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+        res.cookie('token', resetToken, tokenOptions);
         res.json(true);
     }
 
