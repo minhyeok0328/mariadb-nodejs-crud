@@ -75,6 +75,11 @@ export class MemberController {
 
     static getMemberInfo(req, res) {
         const { token } = req.cookies;
+        if (!token) {
+            res.json(null);
+
+            return;
+        }
 
         res.json(decodeToken(token));
     }
